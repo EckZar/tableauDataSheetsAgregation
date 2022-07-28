@@ -24,10 +24,8 @@ function rvExeptionsRtJCalc(){
                                 
                                 if(q.length > 0){
 
-                                    // row[2] = q[0][4];
                                     row[8] = q[0][2];
                                     row[9] = q[0][3];
-                                    // row[10] = q[0][5];
 
                                     row[11] = row[3] * q[0][2];
                                     row[12] = (row[3] * q[0][2]) * q[0][3];

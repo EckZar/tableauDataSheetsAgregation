@@ -112,3 +112,29 @@ function searchBySubString(string: string, subString: string){
   }
 
 }
+
+
+function cropSheetToData(sheet: any){
+
+  if(!sheet)
+  {
+      throw Error(`${sheet}!!!`);
+  }
+
+
+  let lastRow = sheet.getLastRow();
+  let lastCol = sheet.getLastColumn();
+
+  let startRow = lastRow + 1;
+  let startCol = lastCol + 1;
+
+  let maxRow = sheet.getMaxRows();
+  let maxCol = sheet.getMaxColumns();
+
+  let numRows = maxRow - lastRow;
+  let numCols = maxCol - lastCol;
+
+  sheet.deleteRows(startRow, numRows);
+  sheet.deleteColumns(startCol, numCols);
+
+}

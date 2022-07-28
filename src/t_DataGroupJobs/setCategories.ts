@@ -7,19 +7,21 @@ function setSTDataGroupCategories(){
       throw Error('agMainAgregationSheet Lost');
     }
 
-    let dataGroupRange = mainSTDataGroupSheet.getRange(3, 1, mainSTDataGroupSheet.getLastRow() - 2, mainSTDataGroupSheet.getLastColumn())
+    let categoriesArray: Array<Array<string>> = [];
+
+    mainSTDataGroupSheet.getRange(3, 1, mainSTDataGroupSheet.getLastRow() - 2, mainSTDataGroupSheet.getLastColumn())
                         .getValues()
                         .map(row => {
                             try{
-                                row[7] = catRange.filter(job => compareTwoString(job[0], row[0]))[0][1];
+                                categoriesArray.push([catRange.filter(job => compareTwoString(job[0], row[0]))[0][1]]);
                             } catch(e) {
-                                row[7] = 'Неопределено';
+                                categoriesArray.push(['Неопределено']);
                             }
                             return row;
                         });
 
 
-    mainSTDataGroupSheet.getRange(3, 1, dataGroupRange.length, dataGroupRange[0].length).setValues(dataGroupRange);
+    mainSTDataGroupSheet.getRange(3, 8, categoriesArray.length, categoriesArray[0].length).setValues(categoriesArray);
 
 }
 

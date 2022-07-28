@@ -13,19 +13,22 @@ function uniteExeptionsRules(){
       throw Error('agMainAgregationSheet Lost');
     }
 
-    let dataGroupRange = mainSTDataGroupSheet.getRange(3, 1, mainSTDataGroupSheet.getLastRow() - 2, mainSTDataGroupSheet.getLastColumn())
+
+    let materialUnitsArray = mainSTDataGroupSheet.getRange(3, 3, mainSTDataGroupSheet.getLastRow() - 2, 1).getValues();
+
+    mainSTDataGroupSheet.getRange(3, 1, mainSTDataGroupSheet.getLastRow() - 2, 2)
                         .getValues()
-                        .map(row => {
+                        .map((row, i) => {
                             let frvExRange = rvExRange.filter(e => compareTwoString(row[0], e[0]));
 
                             if(frvExRange.length > 0 && !row[2])
                             {
-                                row[2] = frvExRange[0][1];                            
+                              materialUnitsArray[i][0] = frvExRange[0][1];                            
                             } 
                             return row;
                         });
 
 
-    mainSTDataGroupSheet.getRange(3, 1, dataGroupRange.length, dataGroupRange[0].length).setValues(dataGroupRange);
+    mainSTDataGroupSheet.getRange(3, 3, materialUnitsArray.length, 1).setValues(materialUnitsArray);
 
 }

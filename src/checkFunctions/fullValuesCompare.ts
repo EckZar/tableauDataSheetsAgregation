@@ -10,9 +10,8 @@ function compareRevitMappingMaterials(){
         throw Error('mainTMapSheet lost !!!');
     }
 
-    let mapMaterialsRange = mainTMapSheet.getRange(2, 2, mainTMapSheet.getLastRow() - 1, 8).getValues()
-                            //.map((item, index) => [...item, index + 2]);
-
+    let mapMaterialsRange = mainTMapSheet.getRange(2, 2, mainTMapSheet.getLastRow() - 1, 8).getValues();
+                         
     let array = [['dataGroup material', 'map material', 'fixed']];
 
     stMaterialsRange.forEach((item, index) => {

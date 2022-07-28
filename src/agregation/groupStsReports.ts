@@ -55,5 +55,7 @@ function deleteEmptyJobs(){
 
     mainSTDataGroupSheet.getRange(3, 1, range.length, range[0].length).setValues(range);
 
+    cropSheetToData(mainSTDataGroupSheet);
+
 }
 

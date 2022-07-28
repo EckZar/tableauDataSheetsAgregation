@@ -55,6 +55,19 @@ function getStatementSheetData(stSheetId: string): Array<Array<string>>{
     return stMainSheet.getRange(1, 1, stMainSheet.getLastRow(), stMainSheet.getLastColumn()).getValues();
 }
 
+
+function applyStyle(sheet: any){
+  
+    let wholeRange = sheet.getRange(1, 1, sheet.getMaxRows(), sheet.getMaxColumns());
+    wholeRange.setFontFamily('Open Sans');
+
+    let headRange = sheet.getRange(1, 1, 2, sheet.getMaxColumns());
+    headRange.setFontWeight('bold')
+    .setFontSize(12);
+    
+    sheet.getRange(2, 1, sheet.getMaxRows() - 1, sheet.getMaxColumns()).applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
+}
+
 function pasteStatementArray(dataArray: Array<Array<string>>, sheetName: string){
 
     let stSheet = getStatementSheet(sheetName);
@@ -64,6 +77,10 @@ function pasteStatementArray(dataArray: Array<Array<string>>, sheetName: string)
     if(stSheet)
     {
         stSheet.getRange(2, 1, dataArray.length, dataArray[0].length).setValues(dataArray);
+        // СЮда!
+        applyStyle(stSheet);
+        cropSheetToData(stSheet);
+
     } else {
         throw Error('Main was lost');
     }
