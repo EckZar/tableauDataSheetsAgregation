@@ -1,31 +1,101 @@
-function groupStsReports(){
-
-    if(!mainSTDataGroupSheet)
-    {
-        throw Error('mainSTDataGroupSheet !!!')
+function groupStsReports() {
+    if (!mainSTDataGroupSheet) {
+        throw Error('mainSTDataGroupSheet !!!');
     }
-
     clearSheet(mainSTDataGroupSheet, 3);
-
-    let headKeys = mainSTDataGroupSheet.getRange(2, 1, 1, mainSTDataGroupSheet.getLastColumn()).getValues()[0];
-
+    let statementHeadKeys = mainSTDataGroupSheet.getRange(2, 1, 1, 6).getValues()[0];
     main.getSheets()
-    .filter(sheet => sheet.getName().indexOf('st_')>=0)
-    .forEach(sheet => {
-        let lastRow = mainSTDataGroupSheet.getLastRow() + 1;
-        sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
-        .forEach((key, i) => {
-            if(key)
-            {   
-                let pos = headKeys.indexOf(key) + 1;
-                let colArray = sheet.getRange(3, i+1, sheet.getLastRow() - 2, 1).getValues();
-                
-                pasteSTsOnGroupSheet(colArray, pos, lastRow);
+        .filter(list => list.getName().indexOf('st_') >= 0)
+        .forEach(list => {
+        let listValues = list.getRange(1, 1, list.getLastRow(), list.getLastColumn()).getValues();
+
+
+        let objectName = listValues[0][0].slice();        
+        
+        let listHeadKeys = listValues[0].slice().filter(e=>e);
+
+
+        listValues = rotateArray(listValues).filter(e => e[0]);       
+        
+        Logger.log(statementHeadKeys)
+
+        // Сортируем строки по порядку по ключам из главного листа
+        for (let i = 0; i < statementHeadKeys.length; i++) {
+            
+
+            if(listHeadKeys.indexOf(statementHeadKeys[i]) < 0){
+              
+              let tempArr = emptyRowArray(statementHeadKeys[i], listValues[0].length);
+              listValues.push(tempArr);
             }
-        });
-    })
+
+            let temp = listValues[i].slice();
+            for (let j = 0; j < listValues.length; j++) {
+                if (listValues[j][0] == statementHeadKeys[i]) {
+                    listValues[i] = listValues[j];
+                    listValues[j] = temp;
+                    break;
+                }
+            }
+
+            if (statementHeadKeys[i] == 'object') {
+              let a = [];
+              a[0] = 'object';
+              a[1] = 'object';
+              for (let j = 2; j < listValues[0].length; j++) {
+                  a.push(objectName);
+              }              
+              listValues[i] = a;
+            }
+
+            if (statementHeadKeys[i] == 'listName') {
+              let a = [];
+              a[0] = 'listName';
+              a[1] = 'listName';
+              for (let j = 2; j < listValues[0].length; j++) {
+                  a.push(list.getSheetName());
+              }              
+              listValues[i] = a;
+            }
+
+        }
+
+        listValues = rotateArray(listValues);
+
+        if (!mainSTDataGroupSheet) {
+          throw Error('mainSTDataGroupSheet !!!');
+        }
+
+        listValues.splice(0,2)
+        mainSTDataGroupSheet.getRange(mainSTDataGroupSheet.getLastRow() + 1, 1, listValues.length, listValues[0].length).setValues(listValues);
+    });
+}
+
+function emptyRowArray(headKey: string, length: number){
+
+  let arr = [headKey];
+
+  for(let i = 1; i < length; i++){
+    arr[i] = '';
+  }
+
+  return arr;
 
 }
+
+function rotateArray(array: Array<Array<string|number>>){
+  let newArr = [[array[0][0]]];
+  for (let i = 0; i < array[0].length; i++) {
+    newArr[i] = [];
+    for (let j = 0; j < array.length; j++) {   
+      newArr[i][j] = array[j][i];
+    }
+  }
+  return newArr;
+}
+
+
+
 
 function pasteSTsOnGroupSheet(array: Array<Array<string|number>>, pos: number, lastRow: number){
     if(!mainSTDataGroupSheet)

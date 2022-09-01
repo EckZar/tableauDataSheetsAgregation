@@ -1,3 +1,6 @@
+// prod script ID = 1U-y9lPMbAVMlWczWTLdKdtKKaq6UNzyh0wc1vLnJhHzrsYtvJfU8w0u0
+// test script ID = 1MG5_Hnm0mQz4sih2ElA7shzfxwcWc0g4nG0R_rLboxJIPSFsiYhitJQP
+
 const main = SpreadsheetApp.getActiveSpreadsheet();
 
 const mainEntranceDataSheet = main.getSheetByName('entranceData');
