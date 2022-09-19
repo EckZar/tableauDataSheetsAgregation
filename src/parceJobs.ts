@@ -44,18 +44,6 @@ function buildStairs() {
     throw Error('mainTJobSheet!');
   }
 
-  array.map(row => {
-    if(row[9]){
-      let temp = row[9].split(".");
-      
-      while(temp.length < 7){
-        temp.push('1');
-      }
-
-      row[9] = temp.join(".");
-    }
-  });
-
   array = array.filter(e=>e[9]).map(row => [...row, `${row[9]} ${row[10]}`])
 
   mainTJobSheet.getRange(2, 1, array.length, array[0].length).setValues(array);

@@ -57,8 +57,34 @@ function agregateJobs(){
     } 
     commonArray = commonArray.filter(row => row[0] != 'Материалы' && row[1] && row[1] != 'С' && row[1] != 'О' && row[1] != '#REF!')
                              .map(row => [row[0], row[1].replace(/-/g,"."), row[2]]);
+
+    let newCodes = updateJobCodes(commonArray);
+
+    commonArray = [...commonArray, ...newCodes];
+
     mainTRawJobSheet.getRange(2, 1, commonArray.length, commonArray[0].length).setValues(commonArray);
-    
+
+    cropSheetToData(mainTRawJobSheet);
+
+    mainTRawJobSheet.getRange("A2:C").sort({column: 2, ascending: true});
 
 }
 
+function updateJobCodes(arr: Array<Array<string>>) {
+
+    let add: Array<Array<string>> = [];
+
+    arr.forEach((row, i) => {    
+
+      if(i<arr.length-1){
+
+        if (row[0] == 'КЦ2' && arr[i + 1][0] != 'КЦ3') {        
+            add.push(['КЦ3', row[1].concat('.1'), row[2]]);
+        }
+        
+      }
+
+    });
+
+    return add;    
+}

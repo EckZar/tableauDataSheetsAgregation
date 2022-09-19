@@ -134,7 +134,12 @@ function cropSheetToData(sheet: any){
   let numRows = maxRow - lastRow;
   let numCols = maxCol - lastCol;
 
-  sheet.deleteRows(startRow, numRows);
-  sheet.deleteColumns(startCol, numCols);
+  if(numRows > 0){
+    sheet.deleteRows(startRow, numRows);
+  }
+
+  if(numRows > 0){
+    sheet.deleteColumns(startCol, numCols);
+  }    
 
 }
