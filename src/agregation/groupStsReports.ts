@@ -44,7 +44,7 @@ function groupStsReports() {
               a[1] = 'object';
               for (let j = 2; j < listValues[0].length; j++) {
                   a.push(objectName);
-              }              
+              }
               listValues[i] = a;
             }
 
