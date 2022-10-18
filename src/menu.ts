@@ -22,6 +22,7 @@ function subTAggregationMenu(){
   return SpreadsheetApp.getUi()
   .createMenu("t_lists_functions")
     .addItem('Собрать работы', 'agregateJobs')
+    .addItem('Собрать работы 2', 'jobSecondTypeAggregation')
     .addItem('Собрать мэппинг', 'agregateMap')
     .addItem('Собрать цены', 'agregatePrices')  
     .addSeparator()

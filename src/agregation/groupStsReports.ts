@@ -22,7 +22,6 @@ function groupStsReports() {
         // Сортируем строки по порядку по ключам из главного листа
         for (let i = 0; i < statementHeadKeys.length; i++) {
             
-
             if(listHeadKeys.indexOf(statementHeadKeys[i]) < 0){
               
               let tempArr = emptyRowArray(statementHeadKeys[i], listValues[0].length);
@@ -69,6 +68,8 @@ function groupStsReports() {
         listValues.splice(0,2)
         mainSTDataGroupSheet.getRange(mainSTDataGroupSheet.getLastRow() + 1, 1, listValues.length, listValues[0].length).setValues(listValues);
     });
+
+    mainSTDataGroupSheet.getRange('A:A').activate().trimWhitespace();
 }
 
 function emptyRowArray(headKey: string, length: number){
@@ -124,8 +125,6 @@ function deleteEmptyJobs(){
     clearSheet(mainSTDataGroupSheet, 3);
 
     mainSTDataGroupSheet.getRange(3, 1, range.length, range[0].length).setValues(range);
-
-    cropSheetToData(mainSTDataGroupSheet);
 
 }
 

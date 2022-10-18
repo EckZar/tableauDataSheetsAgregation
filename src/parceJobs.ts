@@ -48,6 +48,8 @@ function buildStairs() {
 
   mainTJobSheet.getRange(2, 1, array.length, array[0].length).setValues(array);
 
+  mainTJobSheet.getRange('L:L').activate().trimWhitespace();
+
 }
 
 function shift(array: Array<Array<string>>, shift = 0){

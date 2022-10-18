@@ -86,5 +86,29 @@ function updateJobCodes(arr: Array<Array<string>>) {
 
     });
 
-    return add;    
+    return add;
+}
+
+
+function jobSecondTypeAggregation(){
+
+    if(!mainTRawJobSheet){
+        throw Error('!');
+    }
+
+    clearSheet(mainTRawJobSheet);
+
+    let sheet = SpreadsheetApp.openById('1uM6o79TlfLrJL-CuCsmlzeGGk3sa75oV_mTg4w-1T0I').getSheetByName('Текущий ИСР');
+
+    if(!sheet){
+        throw Error('!');
+    }
+
+    let range = sheet.getRange(2, 2, sheet.getLastRow()-1, 2).getValues()
+                .filter(row => String(row[0]).split(".").length >= 4);
+
+    
+
+    mainTRawJobSheet.getRange(2, 2, range.length, 2).setValues(range);
+
 }
