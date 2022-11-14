@@ -3,17 +3,23 @@ function groupStsReports() {
         throw Error('mainSTDataGroupSheet !!!');
     }
     clearSheet(mainSTDataGroupSheet, 3);
-    let statementHeadKeys = mainSTDataGroupSheet.getRange(2, 1, 1, 6).getValues()[0];
-    main.getSheets()
-        .filter(list => list.getName().indexOf('st_') >= 0)
-        .forEach(list => {
+    let statementHeadKeys = mainSTDataGroupSheet.getRange(2, 1, 1, 7).getValues()[0];
+
+    let objSheetsData = getObjectsSheets();
+
+    objSheetsData.forEach(sheetData => {
+
+      let tempMainSheets = SpreadsheetApp.openById(sheetData[0]).getSheets();
+      
+      tempMainSheets.forEach(list => {
+
+        
         let listValues = list.getRange(1, 1, list.getLastRow(), list.getLastColumn()).getValues();
 
 
         let objectName = listValues[0][0].slice();        
         
         let listHeadKeys = listValues[0].slice().filter(e=>e);
-
 
         listValues = rotateArray(listValues).filter(e => e[0]);       
         
@@ -66,7 +72,10 @@ function groupStsReports() {
         }
 
         listValues.splice(0,2)
-        mainSTDataGroupSheet.getRange(mainSTDataGroupSheet.getLastRow() + 1, 1, listValues.length, listValues[0].length).setValues(listValues);
+        if(listValues.length>0){
+          mainSTDataGroupSheet.getRange(mainSTDataGroupSheet.getLastRow() + 1, 1, listValues.length, listValues[0].length).setValues(listValues);
+        };
+      });
     });
 
     mainSTDataGroupSheet.getRange('A:A').activate().trimWhitespace();
@@ -127,4 +136,3 @@ function deleteEmptyJobs(){
     mainSTDataGroupSheet.getRange(3, 1, range.length, range[0].length).setValues(range);
 
 }
-

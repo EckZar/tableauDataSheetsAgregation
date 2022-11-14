@@ -1,16 +1,9 @@
 function updateFromStatements(){
-
     let sheetsIds = getStatementsSheetsIdsArrayFromSincFolder();
-
-    updateDataFromStatementSheets(sheetsIds);
-
+    updateDataFromStatementsSheets(sheetsIds);
     cleanSincFolder();
+};
 
-}
-
-function goAroundFolderFiles(){
-
-}
 
 function getStatementsSheetsIdsArrayFromSincFolder(): Array<Array<string>>{
     
@@ -35,25 +28,22 @@ function getStatementsSheetsIdsArrayFromSincFolder(): Array<Array<string>>{
 
         sheetsIdsArray.push([fileId, fileName]);
     
-    }
-
+    };
     return sheetsIdsArray;
+};
 
-}   
-
-function updateDataFromStatementSheets(sheetsIds: Array<Array<string>>){
-    
+function updateDataFromStatementsSheets(sheetsIds: Array<Array<string>>){
     sheetsIds.forEach(id => {
         let dataArray = getStatementSheetData(id[0]);
         pasteStatementArray(dataArray, id[1]);
-    })
-}
+    });
+};
 
 function getStatementSheetData(stSheetId: string): Array<Array<string>>{
     let stMain = SpreadsheetApp.openById(stSheetId);
     let stMainSheet = stMain.getSheets()[0];
     return stMainSheet.getRange(1, 1, stMainSheet.getLastRow(), stMainSheet.getLastColumn()).getValues();
-}
+};
 
 
 function applyStyle(sheet: any){
@@ -66,7 +56,7 @@ function applyStyle(sheet: any){
     .setFontSize(12);
     
     sheet.getRange(2, 1, sheet.getMaxRows() - 1, sheet.getMaxColumns()).applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
-}
+};
 
 function pasteStatementArray(dataArray: Array<Array<string>>, sheetName: string){
 

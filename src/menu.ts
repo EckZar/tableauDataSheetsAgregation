@@ -1,7 +1,7 @@
 function menu() {
   SpreadsheetApp.getUi()
   .createMenu("__MENU__")   
-    .addItem('Загрузить таблицы', 'updateFromStatements')  
+    // .addItem('Загрузить таблицы', 'updateFromStatements')
     .addSeparator() 
     .addSubMenu(sheetsListsMenu()) 
     .addSeparator()

@@ -32,6 +32,8 @@ const mainStsListSheet = main.getSheetByName('Листы ведомостей');
 
 const SINC_DATA_FOLDER_ID = getConfigSheetValueByField('SINC_DATA_FOLDER_ID');
 
+const OBJ_SHEETS_FOLDER_ID = '1qhbluq3cx7MDAiREYlfcp3nkl2CDPXW7';
+
 const mainCheckListSheet = main.getSheetByName('checkList');
 
 const exeptionCodes = [
@@ -44,6 +46,5 @@ const exeptionCodes = [
     '6.2.2.8.5.1',
     '6.2.2.8.3.1',
     '6.2.3.1.7.2',
-    
-]
+];
 

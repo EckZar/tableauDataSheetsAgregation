@@ -143,3 +143,9 @@ function cropSheetToData(sheet: any){
   }    
 
 }
+
+function deleteStSheets(){
+  main.getSheets()
+  .filter(sheet => sheet.getName().indexOf('st_')>=0)
+  .forEach(sheet => main.deleteSheet(sheet));
+}
